@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Car Parts Store</title>
+  <title>CarHub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="fade-in">
     <h1>⚙️ CarHub</h1>
     <nav>
-      <a href="#">Home</a>
+      <a href="index.html">Home</a>
       <a href="#">Shop</a>
-      <a href="#">Cart</a>
+      <a href="cart.html">Cart</a>
       <a href="#">Contact</a>
     </nav>
   </header>
@@ -29,23 +29,36 @@
         <img src="assets/img1.png" alt="Brake Pads" />
         <h4>Brake Pads</h4>
         <p>$49.99</p>
-        <button>Add to Cart</button>
+        <button onclick='addToCart({id:1, name:"Brake Pads", price:49.99, img:"assets/img1.png"})'>Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="assets/img2.png" alt="Air Filter" />
         <h4>Air Filter</h4>
         <p>$19.99</p>
-        <button>Add to Cart</button>
+        <button onclick='addToCart({id:2, name:"Air Filter", price:19.99, img:"assets/img2.png"})'>Add to Cart</button>
       </div>
       <div class="product-card">
-        <img src="assets/img3.png" alt="Headlights" />
+        <img src="assets/img3.png" alt="LED Headlights" />
         <h4>LED Headlights</h4>
         <p>$89.99</p>
-        <button>Add to Cart</button>
+        <button onclick='addToCart({id:3, name:"LED Headlights", price:89.99, img:"assets/img3.png"})'>Add to Cart</button>
       </div>
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script>
+    function addToCart(product) {
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      const exists = cart.find(item => item.id === product.id);
+      if (!exists) {
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} added to cart!`);
+      } else {
+        alert(`${product.name} is already in your cart.`);
+      }
+    }
+  </script>
 </body>
 </html>
